@@ -7,7 +7,7 @@ def sumcount_using_range(n):
     count = n
     return total_sum, count
 
-print(sumcount_using_range(100))  # Output: (5050, 100)
+# print(sumcount_using_range(100))  # Output: (5050, 100)
 
 def sumcount_using_formula(n):
     """Returns the sum of all integers from 1 to n and the count of those integers using formulas."""
@@ -17,6 +17,13 @@ def sumcount_using_formula(n):
     count = n
     return total_sum, count
 
-print(sumcount_using_formula(100))  # Output: (5050, 100)
+# print(sumcount_using_formula(100))  # Output: (5050, 100)
 
+def greetings(name):
+    """Returns a greeting message for the given name."""
+    return f"Hello, {name}!"
+
+print(greetings("Alice"))  # Output: "Hello, Alice!"
+
+help(greetings)
 
