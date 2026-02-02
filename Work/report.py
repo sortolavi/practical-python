@@ -63,15 +63,44 @@ def make_report(portfolio, prices):
         report.append((name, shares, current_price, gain_loss))
     return report
 
+def print_report(report):
+    """Prints the report in a formatted manner."""
+    print('%10s %10s %10s %10s' % ('Name', 'Shares', 'Price', 'Change'))
+    print(('-' * 10 + ' ') * 4)
+    for name, shares, price, change in report:
+        dollar_price = f'${price:0.2f}'
+        print(f'{name:>10s} {shares:>10d} {dollar_price:>10s} {change:>10.2f}')
 
-curr_prices = read_prices('.\\Data\\prices.csv')
-portfolio = read_portfolio('.\\Data\\portfoliodate.csv')
-# print(portfolio[0])
-# print(portfolio[1])
+def portfolio_report(portfolio_file, prices_file):
+    """Generates and prints a portfolio report from given files."""
+    curr_prices = read_prices(prices_file)
+    portfolio_data = read_portfolio(portfolio_file)
+    
+    if portfolio_data is None:
+        return  # Exit if portfolio file was not found
+    
+    portfolio, headers = portfolio_data
+    report = make_report(portfolio, curr_prices)
+    print_report(report)
+
+# portfolio_report('.\\Data\\portfoliodate.csv', '.\\Data\\prices.csv')
+
+files = ['.\\Data\\portfolio.csv', '.\\Data\\portfolio2.csv'] 
+for file in files:
+    print(f'{file:-^43s}')
+    portfolio_report(file, '.\\Data\\prices.csv')
+    print()
+
+# curr_prices = read_prices('.\\Data\\prices.csv')
+# portfolio_data = read_portfolio('.\\Data\\portfoliodate.csv')
+# report = make_report(portfolio_data[0], curr_prices)
+# print_report(report)
+
+
+
+'''
 pf_data = portfolio[0]
 headers = portfolio[1]
-
-report = make_report(pf_data, curr_prices)
 
 for h in headers:
     print('%10s' % h, end=' ')
@@ -92,7 +121,7 @@ for row in pf_data:
     for i in list(row.values()):
         print(f'{i:>10}', end=' ')
     print()
-
+'''
 
 
     
