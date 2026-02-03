@@ -3,53 +3,59 @@
 # Exercise 2.4 - 2.12
 import csv
 from pprint import pprint
+from fileparse import parse_csv
+
+
 
 def read_prices(filename):
     """Reads stock prices from a CSV file and returns a dictionary mapping stock names to prices."""
-    prices = {}
-    with open(filename, 'rt') as f:
-        rows = csv.reader(f)
+    # prices = {}
+    # with open(filename, 'rt') as f:
+    #     rows = csv.reader(f)
         
-        for row in rows:
-            if not row:  # Skip empty rows
-                continue
+    #     for row in rows:
+    #         if not row:  # Skip empty rows
+    #             continue
             
-            prices[row[0]] = float(row[1])
+    #         prices[row[0]] = float(row[1])
+    prices = parse_csv(filename, types=[str,float], has_headers=False)
 
-    return prices
+    return dict(prices)
 
 def read_portfolio(filename):
     """Reads a stock portfolio from a CSV file with handling for missing files."""
-    value = 0.0
-    data_list = []
+    # value = 0.0
+    # data_list = []
     
-    try:
+    # try:
 
-      with open(filename, 'rt') as f:
-        rows = csv.reader(f)
-        headers = next(rows) # skip the header line
+    #   with open(filename, 'rt') as f:
+    #     rows = csv.reader(f)
+    #     headers = next(rows) # skip the header line
 
-        for rownum, row in enumerate(rows, start=2):
-            # data_dict = {
-            #     'name': row[0],
-            #     'shares': int(row[1]),
-            #     'price': float(row[2])
-            # }
-            record = dict(zip(headers, row))
-            try:
-                record['shares'] = int(record['shares'])
-                record['price'] = float(record['price'])
-                # value += num_shares * price
-                data_list.append(record)
+    #     for rownum, row in enumerate(rows, start=2):
+    #         # data_dict = {
+    #         #     'name': row[0],
+    #         #     'shares': int(row[1]),
+    #         #     'price': float(row[2])
+    #         # }
+    #         record = dict(zip(headers, row))
+    #         try:
+    #             record['shares'] = int(record['shares'])
+    #             record['price'] = float(record['price'])
+    #             # value += num_shares * price
+    #             data_list.append(record)
 
-            except ValueError:
-                print(f'Line {rownum}: Bad line: {row}')
+    #         except ValueError:
+    #             print(f'Line {rownum}: Bad line: {row}')
             
-        return data_list, headers
+    #     return data_list, headers
       
-    except FileNotFoundError:
-      print(f'Error: The file {filename} was not found.')
-      return None
+    # except FileNotFoundError:
+    #   print(f'Error: The file {filename} was not found.')
+    #   return None
+    portfolio = parse_csv(filename, types=[str, int, float])
+    return portfolio
 
 def make_report(portfolio, prices):
     """Generates a report of the portfolio with current prices and gain/loss."""
@@ -73,65 +79,21 @@ def print_report(report):
 
 def portfolio_report(portfolio_file, prices_file):
     """Generates and prints a portfolio report from given files."""
-    curr_prices = read_prices(prices_file)
-    portfolio_data = read_portfolio(portfolio_file)
     
-    if portfolio_data is None:
+    curr_prices = read_prices(prices_file)
+    portfolio = read_portfolio(portfolio_file)
+    
+    if portfolio is None:
         return  # Exit if portfolio file was not found
     
-    portfolio, headers = portfolio_data
     report = make_report(portfolio, curr_prices)
     print_report(report)
 
 # portfolio_report('.\\Data\\portfoliodate.csv', '.\\Data\\prices.csv')
 
-files = ['.\\Data\\portfolio.csv', '.\\Data\\portfolio2.csv'] 
-for file in files:
-    print(f'{file:-^43s}')
-    portfolio_report(file, '.\\Data\\prices.csv')
-    print()
+
 
 # curr_prices = read_prices('.\\Data\\prices.csv')
 # portfolio_data = read_portfolio('.\\Data\\portfoliodate.csv')
 # report = make_report(portfolio_data[0], curr_prices)
 # print_report(report)
-
-
-
-'''
-pf_data = portfolio[0]
-headers = portfolio[1]
-
-for h in headers:
-    print('%10s' % h, end=' ')
-print()
-print(('-' * 10 + ' ') * len(headers))
-
-# for r in report:
-#     print('%10s %10d %10.2f %10.2f' % r)
-
-# for name, shares, price, change in report:
-#     dollar_price = f'${price:0.2f}'
-#     print(f'{name:>10s} {shares:>10d} {dollar_price:>10s} {change:>10.2f}')
-
-for row in pf_data:
-    # for i,j in row.items():
-    #     print(f'{j:>10s}', end=' ')
-    # print()
-    for i in list(row.values()):
-        print(f'{i:>10}', end=' ')
-    print()
-'''
-
-
-    
-
-
-
-        
-
-
-
-
-
-

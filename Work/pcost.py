@@ -1,6 +1,7 @@
 # pcost.py
 #
 # Exercise 1.27
+
 value = 0.0
 
 with open('.\\Data\\portfolio.csv', 'rt') as f:
@@ -14,3 +15,6 @@ with open('.\\Data\\portfolio.csv', 'rt') as f:
         print(f'{row[0].strip('"'):5s}  {itemvalue:8.2f} {showvalue:10s}')
 
 print(f'Total cost of portfolio: ${value:0.2f}')
+
+
+
