@@ -57,6 +57,11 @@ def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=','
 
     return records
 
+with open('.\\Data\\portfolio.csv') as f:
+    d = parse_csv(f, types=[str, int, float])
+
+print(d)
+
 # portfolio = parse_csv('.\\Data\\portfolio.csv', select=['name','shares'], types=[str, int])
 # print(portfolio)
 
