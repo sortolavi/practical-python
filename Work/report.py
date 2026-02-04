@@ -1,60 +1,23 @@
 # report.py
 #
-# Exercise 2.4 - 2.12
+# Exercise 2.4 - 2.12 - 3.16
 import csv
 from pprint import pprint
 from fileparse import parse_csv
 
 
-
 def read_prices(filename):
     """Reads stock prices from a CSV file and returns a dictionary mapping stock names to prices."""
-    # prices = {}
-    # with open(filename, 'rt') as f:
-    #     rows = csv.reader(f)
-        
-    #     for row in rows:
-    #         if not row:  # Skip empty rows
-    #             continue
-            
-    #         prices[row[0]] = float(row[1])
-    prices = parse_csv(filename, types=[str,float], has_headers=False)
-
+    
+    with open(filename) as f:
+        prices = parse_csv(f, types=[str,float], has_headers=False)
     return dict(prices)
 
 def read_portfolio(filename):
-    """Reads a stock portfolio from a CSV file with handling for missing files."""
-    # value = 0.0
-    # data_list = []
+    """Reads a stock portfolio from a CSV file with handling for missing files and returns a list."""
     
-    # try:
-
-    #   with open(filename, 'rt') as f:
-    #     rows = csv.reader(f)
-    #     headers = next(rows) # skip the header line
-
-    #     for rownum, row in enumerate(rows, start=2):
-    #         # data_dict = {
-    #         #     'name': row[0],
-    #         #     'shares': int(row[1]),
-    #         #     'price': float(row[2])
-    #         # }
-    #         record = dict(zip(headers, row))
-    #         try:
-    #             record['shares'] = int(record['shares'])
-    #             record['price'] = float(record['price'])
-    #             # value += num_shares * price
-    #             data_list.append(record)
-
-    #         except ValueError:
-    #             print(f'Line {rownum}: Bad line: {row}')
-            
-    #     return data_list, headers
-      
-    # except FileNotFoundError:
-    #   print(f'Error: The file {filename} was not found.')
-    #   return None
-    portfolio = parse_csv(filename, types=[str, int, float])
+    with open(filename) as f:
+        portfolio = parse_csv(f, types=[str, int, float])
     return portfolio
 
 def make_report(portfolio, prices):
@@ -64,7 +27,7 @@ def make_report(portfolio, prices):
         name = stock['name']
         shares = int(stock['shares'])
         purchase_price = float(stock['price'])
-        current_price = prices.get(name, 0.0)
+        current_price = prices.get(name, 0.0) # this is why prices must be a dict, not a list
         gain_loss = (current_price - purchase_price)
         report.append((name, shares, current_price, gain_loss))
     return report
@@ -79,7 +42,7 @@ def print_report(report):
 
 def portfolio_report(portfolio_file, prices_file):
     """Generates and prints a portfolio report from given files."""
-    
+
     curr_prices = read_prices(prices_file)
     portfolio = read_portfolio(portfolio_file)
     
@@ -89,11 +52,20 @@ def portfolio_report(portfolio_file, prices_file):
     report = make_report(portfolio, curr_prices)
     print_report(report)
 
-# portfolio_report('.\\Data\\portfoliodate.csv', '.\\Data\\prices.csv')
+
+def main(argv):
+    pf_file = argv[1]
+    price_file = argv[2]
+
+    portfolio_report(pf_file, price_file)
+    
+
+if __name__ == '__main__':
+    import sys
+    # print('hey this file is executed as main, not imported')
+    if len(sys.argv) != 3:
+        raise SystemExit(f'Usage: {sys.argv[0]} ' 'portfile pricefile')
+    
+    main(sys.argv)
 
 
-
-# curr_prices = read_prices('.\\Data\\prices.csv')
-# portfolio_data = read_portfolio('.\\Data\\portfoliodate.csv')
-# report = make_report(portfolio_data[0], curr_prices)
-# print_report(report)
