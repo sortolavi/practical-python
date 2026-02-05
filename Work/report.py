@@ -1,6 +1,6 @@
 # report.py
 #
-# Exercise 2.4 - 2.12 - 3.16
+# Exercise 3.18
 import csv
 from pprint import pprint
 from fileparse import parse_csv
