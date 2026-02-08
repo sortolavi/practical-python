@@ -6,7 +6,8 @@ import gzip
 
 def parse_csv(source, select=None, types=None, has_headers=True, delimiter=',', silence_errors=True):
     '''
-    Parse an iterable into a list of records
+    Parse an iterable source into a list of records.
+    Returns a list of dictionaries if has_headers is True, otherwise returns a list of tuples.
     '''
     if type(source) == str:
         raise RuntimeError("source must be iterable")

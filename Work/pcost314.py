@@ -7,7 +7,8 @@ def portfolio_cost(filename):
     ''' Calculate total cost of portofolio '''
 
     portfolio = read_portfolio(filename)
-    return sum([i['shares'] * i['price'] for i in portfolio ])
+    # return sum([i['shares'] * i['price'] for i in portfolio ])
+    return sum([i.shares * i.price for i in portfolio ])
 
 
 
