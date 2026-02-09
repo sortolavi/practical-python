@@ -4,7 +4,11 @@ import stock
 
 
 a = stock.Stock('GOOG',100,490.10)
-print(a.name)
+print(a)
+columns = ['name', 'shares']
+for colname in columns:
+        print(colname, '=', getattr(a, colname))
+        
 
 b = stock.Stock('AAPL', 50, 122.34)
 c = stock.Stock('IBM', 75, 91.75)
@@ -26,14 +30,14 @@ print(a.cost())
 
 
 
-with open ('.\\Data\\portfolio.csv') as lines:
-    portdicts = fileparse.parse_csv(lines, select=['name','shares','price'], types=[str,int,float])
+# with open ('.\\Data\\portfolio.csv') as lines:
+#     portdicts = fileparse.parse_csv(lines, select=['name','shares','price'], types=[str,int,float])
 
-print(portdicts)
+# print(portdicts)
 
-portfolio = [ stock.Stock(d['name'], d['shares'], d['price']) for d in portdicts]
+# portfolio = [ stock.Stock(d['name'], d['shares'], d['price']) for d in portdicts]
 
-pf_cost = sum([s.cost() for s in portfolio])
-print (f'Total cost: {pf_cost}')
+# pf_cost = sum([s.cost() for s in portfolio])
+# print (f'Total cost: {pf_cost}')
 
 

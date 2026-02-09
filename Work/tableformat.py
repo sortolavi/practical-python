@@ -78,3 +78,23 @@ def create_formatter(fmt):
     else:
         raise ValueError(f'Unknown format: {fmt}')
     
+
+
+def print_table(data, cols, fmt):
+    '''
+    Print a table of data using the specified format.
+    
+    :param data: A list of stock objects containing the table data.
+    :param cols: A list of column names to be used as headings in the table.
+    :param fmt: A string indicating the desired format ('txt', 'csv', 'html').
+    '''
+    
+    fmt.headings(cols)
+    
+    for d in data:
+        rowdata = [str(getattr(d, colname)) for colname in cols] # ['AA', 100]
+        # rowdata = [str(item) for item in rowdata]  # ['AA', '100']
+        
+        fmt.row(rowdata)
+
+

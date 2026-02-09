@@ -12,6 +12,9 @@ price_file = '.\\Data\\prices.csv'
 
 pf_file = '.\\Data\\portfolio.csv'
 
+portfolio = r.read_portfolio(pf_file)
+print(portfolio)
+
 print(f'{pf_file:-^43s}')
 r.portfolio_report(pf_file, price_file)
 print()
