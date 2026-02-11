@@ -4,7 +4,11 @@
 from report import read_portfolio
 
 def portfolio_cost(filename):
-    ''' Calculate total cost of portofolio '''
+    ''' Calculate total cost of portofolio 
+    
+     :param filename: The name of the CSV file containing the portfolio data.
+     :return: The total cost of the portfolio as a float.
+    '''
 
     portfolio = read_portfolio(filename)
     # return sum([i['shares'] * i['price'] for i in portfolio ])

@@ -11,6 +11,6 @@ formatter = tf.create_formatter('txt')
 
 tf.print_table(portfolio, ['name','shares'], formatter)
 
-tf.print_table(portfolio, ['name','shares','price'], formatter)
+# tf.print_table(portfolio, ['name','shares','price'], formatter)
 
-tf.print_table(portfolio, ['name','price'], formatter)
+# tf.print_table(portfolio, ['name','price'], formatter)

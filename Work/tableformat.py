@@ -60,6 +60,8 @@ class HTMLTableFormatter(TableFormatter):
             print(f'<td>{d}</td>', end='')
         print('</tr>')
 
+class FormatError(Exception):
+    pass
 
 
 def create_formatter(fmt):
@@ -76,25 +78,25 @@ def create_formatter(fmt):
     elif fmt == 'html':
         return HTMLTableFormatter()
     else:
-        raise ValueError(f'Unknown format: {fmt}')
+        raise FormatError(f'Unknown table format: {fmt}')
     
 
 
-def print_table(data, cols, fmt):
+def print_table(data, cols, formatter):
     '''
     Print a table of data using the specified format.
     
     :param data: A list of stock objects containing the table data.
     :param cols: A list of column names to be used as headings in the table.
-    :param fmt: A string indicating the desired format ('txt', 'csv', 'html').
+    :param formatter: A formatter object indicating the desired format (e.g. TextTableFormatter, ...)
     '''
     
-    fmt.headings(cols)
+    formatter.headings(cols)
     
     for d in data:
         rowdata = [str(getattr(d, colname)) for colname in cols] # ['AA', 100]
         # rowdata = [str(item) for item in rowdata]  # ['AA', '100']
         
-        fmt.row(rowdata)
+        formatter.row(rowdata)
 
 

@@ -4,7 +4,10 @@ import stock
 
 
 a = stock.Stock('GOOG',100,490.10)
-print(a)
+
+print(a) # Stock(GOOG, 100, 490.1)
+print(a.__dict__) # {'name': 'GOOG', '_shares': 100, 'price': 490.1}
+
 columns = ['name', 'shares']
 for colname in columns:
         print(colname, '=', getattr(a, colname))
@@ -21,12 +24,16 @@ stocks = [a, b, c]
 for s in stocks:
     print(f'{s.name:>10s} {s.shares:>10d} {s.price:>10.2f}')
 
-print(a.cost())
+# print(a.cost())
+print(a.cost) # because cost is now a property, not a method
 
 a.sell(25)
 
 print(a.shares)
-print(a.cost())
+# print(a.cost()) 
+print(a.cost) 
+
+
 
 
 
