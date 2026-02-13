@@ -4,7 +4,7 @@
 import csv
 import gzip
 
-def parse_csv(source, select=None, types=None, has_headers=True, delimiter=',', silence_errors=False):
+def parse_csv(source, select=None, types=None, has_headers=True, delimiter=',', silence_errors=True):
     '''
     Parse an iterable source into a list of records.
     Returns a list of dictionaries if has_headers is True, otherwise returns a list of tuples.
@@ -37,7 +37,7 @@ def parse_csv(source, select=None, types=None, has_headers=True, delimiter=',', 
     for rownum, row in enumerate(rows, start=start):
     
         if not row:    # Skip rows with no data
-            print(f'Row {rownum}: Empty row')
+            # print(f'Row {rownum}: Empty row')
             continue
         try:
             # Filter the row if specific columns were selected
@@ -47,7 +47,7 @@ def parse_csv(source, select=None, types=None, has_headers=True, delimiter=',', 
             # Convert types if a list of types is provided
             if types:
                 row = [func(val) for func, val in zip(types, row) ]
-                print(f'Row {rownum}: Converted row: {row}')
+                # print(f'Row {rownum}: Converted row: {row}')
 
         except ValueError as e:
             if not silence_errors:
@@ -66,10 +66,10 @@ def parse_csv(source, select=None, types=None, has_headers=True, delimiter=',', 
 
 
 
-with open('.\\Data\\missing.csv') as f:
-    d = parse_csv(f, types=[str, int, float])
+# with open('.\\Data\\missing.csv') as f:
+#     d = parse_csv(f, types=[str, int, float])
 
-print(d)
+# print(d)
 
 
 

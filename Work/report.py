@@ -4,7 +4,8 @@
 # import csv
 # from pprint import pprint
 from fileparse import parse_csv
-import stock
+from portfolio import Portfolio
+from stock import Stock
 import tableformat
 
 
@@ -27,8 +28,8 @@ def read_portfolio(filename):
     with open(filename) as f:
         portdicts = parse_csv(f, types=[str, int, float])
 
-    portfolio = [ stock.Stock(d['name'], d['shares'], d['price']) for d in portdicts]
-    return portfolio
+    portfolio = [ Stock(d['name'], d['shares'], d['price']) for d in portdicts]
+    return Portfolio(portfolio)
 
 def make_report(portfolio, prices):
     '''
@@ -93,7 +94,7 @@ def main(argv):
 
 if __name__ == '__main__':
     import sys
-    # print('hey this file is executed as main, not imported')
+    # print('this prints when file is executed as main, not imported')
     if len(sys.argv) not in [3, 4]:
         raise SystemExit(f'Usage: {sys.argv[0]} ' 'portfile pricefile <format>')
     

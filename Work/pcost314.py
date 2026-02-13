@@ -10,9 +10,10 @@ def portfolio_cost(filename):
      :return: The total cost of the portfolio as a float.
     '''
 
-    portfolio = read_portfolio(filename)
+    portfolio = read_portfolio(filename) # Portfolio class object
     # return sum([i['shares'] * i['price'] for i in portfolio ])
-    return sum([i.shares * i.price for i in portfolio ])
+    # return sum([i.shares * i.price for i in portfolio ])
+    return portfolio.total_cost
 
 
 

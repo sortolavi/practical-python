@@ -1,5 +1,9 @@
 {
   "workbench.editor.autoLockGroups": {
     "terminalEditor": false
-  }
+},
+"python.analysis.aiHoverSummaries": false,
+"chat.extensionUnification.enabled": false,
+"chat.disableAIFeatures": true,
+"python.analysis.autoImportCompletions": false
 }
