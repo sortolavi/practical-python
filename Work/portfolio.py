@@ -15,12 +15,14 @@ class Portfolio:
         return self._holdings[index]
     
     def __contains__(self, name): # usage: 'IBM' in object ? True
-        return any([s.name == name for s in self._holdings])
+        # return any([s.name == name for s in self._holdings])
+        return any(s.name == name for s in self._holdings)
 
     
     @property
     def total_cost(self): # usage: object.total_cost
-        return sum([s.shares * s.price for s in self._holdings])
+        # return sum([s.shares * s.price for s in self._holdings])
+        return sum(s.shares * s.price for s in self._holdings)
 
 
     def tabulate_shares(self):
@@ -29,6 +31,7 @@ class Portfolio:
         total_shares = Counter()
         for s in self._holdings:
             total_shares[s.name] += s.shares
+
         return total_shares
 
 

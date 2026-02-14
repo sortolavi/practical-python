@@ -11,6 +11,17 @@ print(portfolio[0:3])
 print('IBM' in portfolio)
 print('YIT' in portfolio)
 
+print(portfolio.total_cost)
+print(portfolio.tabulate_shares())
+
+holdings = portfolio.tabulate_shares()
+
+print(holdings.most_common(2))
+
+for h in holdings:
+    print(h, holdings[h])
+
+
 
 
 """ 

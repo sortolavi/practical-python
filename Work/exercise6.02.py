@@ -24,23 +24,22 @@ def printtaa():
 
 # printtaa()
 
-def filematch(filename, substr):
-    with open(filename, 'r') as f:
-        for line in f:
-            if substr in line:
-                yield line
-
-# for line in open('.\\Data\\portfolio.csv'):
-#     print(line, end='')
-
-f = filematch('.\\Data\\portfolio.csv', 'IBM')
-# print(f)
-# print(f.__next__(), end='')
-# print(f.__next__(), end='')
-
-for line in f:
-    print(line, end='')
+def filematch(lines, substr):
+    for line in lines:
+        if substr in line:
+            yield line
 
 
-# for line in filematch('.\\Data\\portfolio.csv', 'IBM'):
-#     print(line, end='')
+from follow import follow
+
+lines = follow('.\\Data\\stocklog.csv')
+# ibm = filematch(lines, 'IBM')
+# for line in ibm:
+#     print(line)
+
+import csv
+
+rows = csv.reader(lines)
+for row in rows:
+    print(row)
+

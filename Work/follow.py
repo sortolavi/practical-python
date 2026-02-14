@@ -1,10 +1,14 @@
-
+# follow.py
 import os
 import time
-import report
+
 
 def follow(filename):
+    '''
+    Generator function to produce data for consumers
     
+    :param filename: file to read latest data added to the bottom
+    '''
     f = open(filename)
     f.seek(0, os.SEEK_END)   # Move file pointer 0 bytes from end of file
 
@@ -19,7 +23,7 @@ def follow(filename):
 
 
 if __name__ == '__main__':
-
+    import report
     portfolio = report.read_portfolio('.\\Data\\portfolio.csv')
 
     for line in follow('.\\Data\\stocklog.csv'):

@@ -51,6 +51,9 @@ def make_report(portfolio, prices):
 def print_report(reportdata, formatter):
     '''
     Print a nicely formatted table from a list of (name, shares, price, change) tuples.
+    
+    :param reportdata: dictionary of data
+    :param formatter: Description
     '''
 
     formatter.headings(['Name','Shares','Price ($)','Change ($)'])
