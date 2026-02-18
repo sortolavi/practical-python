@@ -19,17 +19,22 @@ def read_prices(filename):
         prices = parse_csv(f, types=[str,float], has_headers=False)
     return dict(prices)
 
-def read_portfolio(filename):
+def read_portfolio(filename, **opts):
     """
     Reads a stock portfolio from a CSV file with handling for missing files.
     Returns a list of Stock objects.
     """
     
     with open(filename) as f:
-        portdicts = parse_csv(f, types=[str, int, float])
+        portdicts = parse_csv(f, 
+                              select=['name','shares','price'],
+                              types=[str, int, float],
+                              **opts)
 
-    portfolio = [ Stock(d['name'], d['shares'], d['price']) for d in portdicts]
-    return Portfolio(portfolio)
+    # stock_data = [ Stock(d['name'], d['shares'], d['price']) for d in portdicts]
+    stock_data = [ Stock(**d) for d in portdicts]
+    
+    return Portfolio(stock_data)
 
 def make_report(portfolio, prices):
     '''
@@ -91,7 +96,7 @@ def main(argv):
     pf_file = argv[1]
     price_file = argv[2]
     fmt = argv[3] if len(argv) > 3 else 'txt'  # Default to 'txt' if format is not provided
-    
+
     portfolio_report(pf_file, price_file, fmt)
     
 
@@ -99,7 +104,7 @@ if __name__ == '__main__':
     import sys
     # print('this prints when file is executed as main, not imported')
     if len(sys.argv) not in [3, 4]:
-        raise SystemExit(f'Usage: {sys.argv[0]} ' 'portfile pricefile <format>')
+        raise SystemExit(f'Usage: {sys.argv[0]} ' 'portfile pricefile [format]')
     
     main(sys.argv)
 

@@ -1,8 +1,14 @@
 
+from typedproperty import String, Integer, Float
 
 class Stock:
 
-    __slots__ = ['name', '_shares', 'price'] # this is an optimization to save memory, but it also prevents adding new attributes to the class
+    # __slots__ = ['name', '_shares', 'price'] # this is an optimization to save memory, but it also prevents adding new attributes to the class
+
+    name = String('name')
+    shares = Integer('shares')
+    price = Float('price')
+  
     
     def __init__(self, name, shares, price):
         self.name = name
@@ -15,19 +21,6 @@ class Stock:
     def __repr__(self):
         return f"Stock({self.name}, {self.shares}, {self.price})"
     
-    # the shares property internally uses a private name, but the rest of the class can use the public name
-    # goog.__dict__  gives: {'name': 'GOOG', '_shares': 100, 'price': 490.1}
-
-    @property
-    def shares(self):
-        return self._shares
-    
-    @shares.setter
-    def shares(self, shares):
-        if not isinstance(shares, int) or shares < 0:
-            raise ValueError('Shares must be non-negative integer')
-        self._shares = shares
-
 
     @property
     def cost(self):

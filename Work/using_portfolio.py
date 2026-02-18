@@ -2,6 +2,8 @@
 import report
 
 portfolio = report.read_portfolio('.\\Data\\portfolio.csv')
+
+
 print(len(portfolio))
 
 print(portfolio[0])
@@ -12,9 +14,8 @@ print('IBM' in portfolio)
 print('YIT' in portfolio)
 
 print(portfolio.total_cost)
-print(portfolio.tabulate_shares())
-
 holdings = portfolio.tabulate_shares()
+print(holdings)
 
 print(holdings.most_common(2))
 
@@ -23,6 +24,20 @@ for h in holdings:
 
 
 
+def stock_name(s):
+    return 1/s.price # reverse order
+
+portfolio = list(portfolio)
+
+portfolio.sort(key=stock_name)
+for s in portfolio:
+    print(s)
+
+print()
+
+portfolio.sort(key=lambda s: s.price)
+for s in portfolio:
+    print(s)
 
 """ 
 class Box:
